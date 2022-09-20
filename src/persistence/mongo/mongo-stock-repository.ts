@@ -29,7 +29,7 @@ export class MongoStockRepository implements StockRepository {
         return this.mongoStockAssembler.assemble(model);
     }
 
-    async getWatchedStocks(): Promise<Stock[]> {
+    async findAll(): Promise<Stock[]> {
         if (!this.isConnected) {
             await this.connectToMongo();
         }
