@@ -1,4 +1,5 @@
 import express, {Request, Response} from "express";
+import {StockServiceImpl} from "../domain/stock-service-impl";
 import {StockService} from "../domain/stock-service";
 
 export class StockApi {
@@ -13,7 +14,6 @@ export class StockApi {
 
     getRouter(): express.Router {
         return this.router;
-
     }
 
     private setRoutes() {

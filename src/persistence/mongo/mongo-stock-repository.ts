@@ -1,6 +1,6 @@
 import {connect, Model, model} from "mongoose";
 import {Stock} from "../../stocks/stock";
-import {StockRepository} from "../stock-repository";
+import {StockRepository} from "../../domain/stock-repository";
 import {stockUpdateSchema, watchedStockSchema} from "./mongo-stock-models";
 import {MongoStockAssembler} from "./mongo-stock-assembler";
 

@@ -1,7 +1,7 @@
 import express from "express";
 import {MongoStockRepository} from "./persistence/mongo/mongo-stock-repository";
-import {StockRepository} from "./persistence/stock-repository";
-import {StockService} from "./domain/stock-service";
+import {StockRepository} from "./domain/stock-repository";
+import {StockServiceImpl} from "./domain/stock-service-impl";
 import {StockApi} from "./api/stocks-api";
 const app = express()
 const port = 3000
@@ -20,7 +20,7 @@ function createStockApi(): StockApi {
         "watchedStocks",
         process.env.DATABASEURL);
 
-    const stockService = new StockService(persistence);
+    const stockService = new StockServiceImpl(persistence);
 
     return new StockApi(stockService);
 }

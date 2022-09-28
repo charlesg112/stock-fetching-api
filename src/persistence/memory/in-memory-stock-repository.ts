@@ -1,6 +1,6 @@
-import {StockRepository} from "../stock-repository";
+import {StockRepository} from "../../domain/stock-repository";
 import {Stock} from "../../stocks/stock";
-import {NonexistentStockError} from "../nonexistent-stock-error";
+import {NonexistentStockError} from "../../domain/nonexistent-stock-error";
 
 export class InMemoryStockRepository implements StockRepository {
 
