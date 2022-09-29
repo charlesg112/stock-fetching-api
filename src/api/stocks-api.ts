@@ -24,9 +24,15 @@ export class StockApi {
         });
 
         this.router.get('/stocks/:id', async (req: Request, res: Response) => {
-            const stock = await this.service.getStockById(req.params.id);
+            const stock = await this.service.getStock(req.params.id);
 
             res.json(stock);
+        })
+
+        this.router.get('/stocks/:id/updates', async (req: Request, res: Response) => {
+            const updates = await this.service.getStockUpdates(req.params.id);
+
+            res.json(updates);
         })
     }
 }

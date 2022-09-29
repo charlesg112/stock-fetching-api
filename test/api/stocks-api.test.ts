@@ -9,11 +9,17 @@ describe("Stock api tests", () => {
 
     const getStockByIdMock = jest.fn(async (_) => stock)
     const getWatchedStocksMock = jest.fn(async () => [stock])
+    const getStockClosesMock = jest.fn(async () => [])
 
     const stockServiceMock: StockService = {
-        getStockById: getStockByIdMock,
-        getWatchedStocks: getWatchedStocksMock
+        getStock: getStockByIdMock,
+        getWatchedStocks: getWatchedStocksMock,
+        getStockUpdates: getStockClosesMock
     }
 
     const stockApi = new StockApi(stockServiceMock);
+
+    test("Given non persisted stock id When retrieving stock Then error is returned", async () => {
+
+    })
 })

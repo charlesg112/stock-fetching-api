@@ -1,5 +1,5 @@
 import {StockRepository} from "./stock-repository";
-import {Stock} from "../stocks/stock";
+import {Stock, StockUpdate} from "../stocks/stock";
 import {NonexistentStockError} from "./nonexistent-stock-error";
 import {StockService} from "./stock-service";
 
@@ -10,16 +10,25 @@ export class StockServiceImpl implements StockService{
         this.repository = repository;
     }
 
-    getStockById(id: string): Promise<Stock> {
+    getStock(id: string): Promise<Stock> {
         try {
             return this.repository.getStockById(id);
         }
         catch (e) {
-            throw new NonexistentStockError(`Could not find stock with id ${id}`);
+            throw new NonexistentStockError(id);
         }
     }
 
     getWatchedStocks(): Promise<Stock[]> {
         return this.repository.findAll();
+    }
+
+    getStockUpdates(id: string): Promise<StockUpdate[]> {
+        try {
+            return this.repository.getStockUpdatesById(id);
+        }
+        catch (e) {
+            throw new NonexistentStockError(id);
+        }
     }
 }

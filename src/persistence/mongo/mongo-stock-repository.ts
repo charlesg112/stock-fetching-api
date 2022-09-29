@@ -1,5 +1,5 @@
 import {connect, Model, model} from "mongoose";
-import {Stock} from "../../stocks/stock";
+import {Stock, StockUpdate} from "../../stocks/stock";
 import {StockRepository} from "../../domain/stock-repository";
 import {stockUpdateSchema, watchedStockSchema} from "./mongo-stock-models";
 import {MongoStockAssembler} from "./mongo-stock-assembler";
@@ -37,6 +37,14 @@ export class MongoStockRepository implements StockRepository {
         const models = await this.watchedStockModel.find({}) as Stock[];
 
         return models.map(m => this.mongoStockAssembler.assemble(m));
+    }
+
+    async getStockUpdatesById(id: string): Promise<StockUpdate[]> {
+        if (!this.isConnected) {
+            await this.connectToMongo();
+        }
+
+        return await this.stockUpdateModel.find({id: id}) as StockUpdate[];
     }
 
     private static getConnectionUrl(connectionUrl: string | undefined, databaseName: string): string {
