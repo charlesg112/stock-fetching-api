@@ -1,7 +1,8 @@
-import {StockRepository} from "./stock-repository";
+import {StockRepository} from "../domain/stock-repository";
 import {Stock, StockUpdate} from "../stocks/stock";
-import {NonexistentStockError} from "./nonexistent-stock-error";
+import {NonexistentStockError} from "../domain/nonexistent-stock-error";
 import {StockService} from "./stock-service";
+import {StockUpdateDto} from "./stock-update-dto";
 
 export class StockServiceImpl implements StockService{
     private repository: StockRepository;
@@ -23,12 +24,12 @@ export class StockServiceImpl implements StockService{
         return this.repository.findAll();
     }
 
-    getStockUpdates(id: string): Promise<StockUpdate[]> {
+    getStockUpdates(stockUpdateDto: StockUpdateDto): Promise<StockUpdate[]> {
         try {
-            return this.repository.getStockUpdatesById(id);
+            return this.repository.getStockUpdatesById(stockUpdateDto.id, stockUpdateDto.limit);
         }
         catch (e) {
-            throw new NonexistentStockError(id);
+            throw new NonexistentStockError(stockUpdateDto.id);
         }
     }
 }

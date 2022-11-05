@@ -1,7 +1,9 @@
-import {StockServiceImpl} from "../../src/domain/stock-service-impl";
+import {StockServiceImpl} from "../../src/service/stock-service-impl";
 import {Stock} from "../../src/stocks/stock";
 import {InMemoryStockRepository} from "../../src/persistence/memory/in-memory-stock-repository";
 import {StockUpdateBuilder} from "../helpers/stock-update-builder";
+import {StockUpdateDto} from "../../src/service/stock-update-dto";
+import {StockUpdateDtoBuilder} from "../helpers/stock-update-dto-builder";
 
 describe("Stock service tests", () => {
 
@@ -41,16 +43,18 @@ describe("Stock service tests", () => {
     })
 
     test("Given saved stock id When finding stocks updates by id Then updates are retrieved", async () => {
+        const stockUpdateDto = new StockUpdateDtoBuilder().withId(stockId).build();
         inMemoryRepository.saveUpdate(new StockUpdateBuilder().withId(stockId).build());
 
-        const savedUpdate = await stockService.getStockUpdates(stockId);
+        const savedUpdate = await stockService.getStockUpdates(stockUpdateDto);
 
         expect(savedUpdate).not.toBeNull();
     })
 
     test("Given non saved stock id When finding stocks updates by id Then exception is thrown", async () => {
         const notSaveStockId = "abc";
+        const stockUpdateDto = new StockUpdateDtoBuilder().withId(notSaveStockId).build();
 
-        await expect(stockService.getStockUpdates(notSaveStockId)).rejects.toThrow();
+        await expect(stockService.getStockUpdates(stockUpdateDto)).rejects.toThrow();
     })
 })

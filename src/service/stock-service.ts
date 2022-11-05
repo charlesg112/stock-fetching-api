@@ -1,7 +1,8 @@
 import {Stock, StockUpdate} from "../stocks/stock";
+import {StockUpdateDto} from "./stock-update-dto";
 
 export interface StockService {
     getStock: (id: string) => Promise<Stock>;
     getWatchedStocks: () => Promise<Stock[]>;
-    getStockUpdates: (id: string) => Promise<StockUpdate[]>
+    getStockUpdates: (stockUpdateDto: StockUpdateDto) => Promise<StockUpdate[]>
 }
