@@ -1,4 +1,4 @@
-import {Request} from "express";
+import { Request } from 'express';
 
 export class ExpressRequestBuilder {
     private params;
@@ -10,7 +10,7 @@ export class ExpressRequestBuilder {
     }
 
     public withParam(param: any): ExpressRequestBuilder {
-        Object.assign(this.params, param)
+        Object.assign(this.params, param);
         return this;
     }
 
@@ -24,5 +24,4 @@ export class ExpressRequestBuilder {
             }
         } as unknown as Request;
     }
-
 }

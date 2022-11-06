@@ -1,9 +1,9 @@
-import {connect, Model, model} from "mongoose";
-import {Stock, StockUpdate} from "../../stocks/stock";
-import {StockRepository} from "../../domain/stock-repository";
-import {stockUpdateSchema, watchedStockSchema} from "./mongo-stock-models";
-import {MongoStockAssembler} from "./mongo-stock-assembler";
-import {StockNotFoundError} from "../stock-not-found-error";
+import { connect, Model, model } from 'mongoose';
+import { Stock, StockUpdate } from '../../stocks/stock';
+import { StockRepository } from '../../domain/stock-repository';
+import { stockUpdateSchema, watchedStockSchema } from './mongo-stock-models';
+import { MongoStockAssembler } from './mongo-stock-assembler';
+import { StockNotFoundError } from '../stock-not-found-error';
 
 export class MongoStockRepository implements StockRepository {
     static WATCHED_STOCKS_COLLECTION_NAME = 'watchedstocks';
@@ -30,7 +30,7 @@ export class MongoStockRepository implements StockRepository {
             await this.connectToMongo();
         }
 
-        const model = await this.watchedStockModel.findOne({id: id}) as Stock;
+        const model = (await this.watchedStockModel.findOne({ id: id })) as Stock;
 
         if (!model) {
             throw new StockNotFoundError(id);
@@ -44,9 +44,9 @@ export class MongoStockRepository implements StockRepository {
             await this.connectToMongo();
         }
 
-        const models = await this.watchedStockModel.find({}) as Stock[];
+        const models = (await this.watchedStockModel.find({})) as Stock[];
 
-        return models.map(m => this.mongoStockAssembler.assemble(m));
+        return models.map((m) => this.mongoStockAssembler.assemble(m));
     }
 
     async getStockUpdatesById(id: string, limit: number | null): Promise<StockUpdate[]> {
@@ -55,10 +55,10 @@ export class MongoStockRepository implements StockRepository {
         }
 
         if (limit) {
-            return await this.stockUpdateModel.find({id: id}).sort({'updatedOn': -1}).limit(limit) as StockUpdate[];
+            return (await this.stockUpdateModel.find({ id: id }).sort({ updatedOn: -1 }).limit(limit)) as StockUpdate[];
         }
 
-        return await this.stockUpdateModel.find({id: id}).sort({'updatedOn': -1}) as StockUpdate[];
+        return (await this.stockUpdateModel.find({ id: id }).sort({ updatedOn: -1 })) as StockUpdate[];
     }
 
     private static getConnectionUrl(connectionUrl: string | undefined, databaseName: string): string {

@@ -1,10 +1,10 @@
-import {Response} from "express";
+import { Response } from 'express';
 
 export class ExpressResponseBuilder {
     private json;
 
     constructor() {
-        this.json = jest.fn()
+        this.json = jest.fn();
     }
 
     public build(): Response {

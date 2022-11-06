@@ -1,11 +1,11 @@
-import {StockUpdateDto} from "../../src/service/stock-update-dto";
+import { StockUpdateDto } from '../../src/service/stock-update-dto';
 
 export class StockUpdateDtoBuilder {
     private id: string;
-    private limit: number | null
+    private limit: number | null;
 
     constructor() {
-        this.id = "5";
+        this.id = '5';
         this.limit = 100;
     }
 
