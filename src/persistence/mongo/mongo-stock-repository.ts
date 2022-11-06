@@ -3,6 +3,7 @@ import {Stock, StockUpdate} from "../../stocks/stock";
 import {StockRepository} from "../../domain/stock-repository";
 import {stockUpdateSchema, watchedStockSchema} from "./mongo-stock-models";
 import {MongoStockAssembler} from "./mongo-stock-assembler";
+import {StockNotFoundError} from "../stock-not-found-error";
 
 export class MongoStockRepository implements StockRepository {
     static WATCHED_STOCKS_COLLECTION_NAME = 'watchedstocks';
@@ -30,6 +31,10 @@ export class MongoStockRepository implements StockRepository {
         }
 
         const model = await this.watchedStockModel.findOne({id: id}) as Stock;
+
+        if (!model) {
+            throw new StockNotFoundError(id);
+        }
 
         return this.mongoStockAssembler.assemble(model);
     }

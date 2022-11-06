@@ -28,16 +28,26 @@ export class StockApi {
         this.router.get('/stocks/:id/updates', this.getStockUpdates);
     }
 
-    public getWatchedStocks = async (req: Request, res: Response) => {
-        const stocks = await this.service.getWatchedStocks();
+    public getWatchedStocks = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const stocks = await this.service.getWatchedStocks();
 
-        res.json(stocks);
+            res.json(stocks);
+        }
+        catch (e) {
+            next(e);
+        }
     }
 
-    public getStockById = async (req: Request, res: Response) => {
-        const stock = await this.service.getStock(req.params.id);
+    public getStockById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const stock = await this.service.getStock(req.params.id);
 
-        res.json(stock);
+            res.json(stock);
+        }
+        catch (e) {
+            next(e);
+        }
     }
 
     public getStockUpdates = async (req: Request, res: Response, next: NextFunction) => {

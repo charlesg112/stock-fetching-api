@@ -6,6 +6,7 @@ import {StockApi} from "./api/stocks-api";
 import {StockUpdateAssemblerImpl} from "./api/stock-update-assembler-impl";
 import {valueIsNotANumberMapper} from "./api/exceptions/value-is-not-a-number-mapper";
 import {catchallExceptionMapper} from "./api/exceptions/catchall-exception-mapper";
+import {stockNotFoundMapper} from "./api/exceptions/stock-not-found-mapper";
 const app = express()
 const port = 3000
 
@@ -14,7 +15,7 @@ const stockApi = createStockApi();
 app.use(stockApi.getRouter());
 
 app.use(valueIsNotANumberMapper);
-
+app.use(stockNotFoundMapper);
 app.use(catchallExceptionMapper);
 
 app.listen(port, () => {

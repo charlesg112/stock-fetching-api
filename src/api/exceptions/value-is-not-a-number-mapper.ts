@@ -7,5 +7,7 @@ export const valueIsNotANumberMapper = (err: any, req: any, res: any, next: any)
         res.setHeader('Content-Type', 'application/json');
         res.json({ error: `${err.fieldName} should be a number.` });
     }
-    next(err);
+    else {
+        next(err);
+    }
 };
