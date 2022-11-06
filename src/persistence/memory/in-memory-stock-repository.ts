@@ -1,15 +1,14 @@
-import {StockRepository} from "../../domain/stock-repository";
-import {Stock, StockUpdate} from "../../stocks/stock";
-import {NonexistentStockError} from "../../domain/nonexistent-stock-error";
+import { StockRepository } from '../../domain/stock-repository';
+import { Stock, StockUpdate } from '../../stocks/stock';
+import { NonexistentStockError } from '../../domain/nonexistent-stock-error';
 
 export class InMemoryStockRepository implements StockRepository {
-
     private stocks;
     private stockUpdates;
 
     constructor() {
-        this.stocks = new Map<string, Stock>;
-        this.stockUpdates = new Map<string, StockUpdate[]>
+        this.stocks = new Map<string, Stock>();
+        this.stockUpdates = new Map<string, StockUpdate[]>();
     }
 
     save(stock: Stock) {

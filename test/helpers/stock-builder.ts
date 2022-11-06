@@ -1,4 +1,4 @@
-import {Stock} from "../../src/stocks/stock";
+import { Stock } from '../../src/stocks/stock';
 
 export class StockBuilder {
     private id: string;
@@ -36,4 +36,3 @@ export class StockBuilder {
         );
     }
 }
-

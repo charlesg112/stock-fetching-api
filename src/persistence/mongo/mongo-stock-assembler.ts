@@ -1,11 +1,17 @@
-import {Stock} from "../../stocks/stock";
+import { Stock } from '../../stocks/stock';
 
 export class MongoStockAssembler {
-    constructor() {
-    }
+    constructor() {}
 
     assemble(model: Stock): Stock {
-        return new Stock(model.id, model.symbol, model.exchange, model.currency,
-            model.lastUpdate, model.nextUpdate, model.lastValue);
+        return new Stock(
+            model.id,
+            model.symbol,
+            model.exchange,
+            model.currency,
+            model.lastUpdate,
+            model.nextUpdate,
+            model.lastValue
+        );
     }
 }

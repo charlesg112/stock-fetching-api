@@ -1,4 +1,4 @@
-import {Schema} from "mongoose";
+import { Schema } from 'mongoose';
 
 export const watchedStockSchema = new Schema({
     id: { type: String },
@@ -8,10 +8,10 @@ export const watchedStockSchema = new Schema({
     lastUpdate: { type: Date },
     nextUpdate: { type: Date },
     lastValue: { type: Number }
-})
+});
 
 export const stockUpdateSchema = new Schema({
     id: { type: String },
     updatedOn: { type: Date },
     value: { type: Number }
-})
+});

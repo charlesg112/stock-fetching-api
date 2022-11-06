@@ -1,6 +1,6 @@
-import {StockUpdateDto} from "../service/stock-update-dto";
-import {ValueIsNotANumberError} from "./exceptions/value-is-not-a-number-error";
-import {StockUpdateAssembler} from "./stock-update-assembler";
+import { StockUpdateDto } from '../service/stock-update-dto';
+import { ValueIsNotANumberError } from './exceptions/value-is-not-a-number-error';
+import { StockUpdateAssembler } from './stock-update-assembler';
 
 export class StockUpdateAssemblerImpl implements StockUpdateAssembler {
     toDto(id: string, limit: any): StockUpdateDto {
@@ -18,8 +18,7 @@ export class StockUpdateAssemblerImpl implements StockUpdateAssembler {
             if (Number.isInteger(limitNumber)) {
                 return limitNumber;
             }
-        } catch(e) {
-        }
-        throw new ValueIsNotANumberError("limit");
+        } catch (e) {}
+        throw new ValueIsNotANumberError('limit');
     }
 }

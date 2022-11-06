@@ -1,5 +1,5 @@
-import {StockUpdate} from "../../src/stocks/stock";
-import {randomUUID} from "crypto";
+import { StockUpdate } from '../../src/stocks/stock';
+import { randomUUID } from 'crypto';
 
 export class StockUpdateBuilder {
     private readonly stockUpdate: StockUpdate;
@@ -9,14 +9,14 @@ export class StockUpdateBuilder {
             id: randomUUID(),
             updatedOn: new Date(),
             value: Math.random()
-        }
+        };
     }
 
     build() {
         return this.stockUpdate;
     }
 
-    withId(id: string): StockUpdateBuilder  {
+    withId(id: string): StockUpdateBuilder {
         this.stockUpdate.id = id;
         return this;
     }

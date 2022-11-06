@@ -1,5 +1,4 @@
 export class ValueIsNotANumberError extends Error {
-
     fieldName: string;
 
     constructor(fieldName: string) {

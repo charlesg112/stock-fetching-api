@@ -6,5 +6,4 @@ export class StockUpdateDto {
         this.id = id;
         this.limit = limit;
     }
-
 }
