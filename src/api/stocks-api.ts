@@ -1,7 +1,8 @@
 import express, {NextFunction, Request, Response} from "express";
 import {StockService} from "../service/stock-service";
-import {StockUpdateAssembler} from "./stock-update-assembler";
+import {StockUpdateAssemblerImpl} from "./stock-update-assembler-impl";
 import {valueIsNotANumberMapper} from "./exceptions/value-is-not-a-number-mapper";
+import {StockUpdateAssembler} from "./stock-update-assembler";
 
 export class StockApi {
     private service: StockService;
@@ -20,29 +21,35 @@ export class StockApi {
     }
 
     private setRoutes() {
-        this.router.get('/stocks', async (req: Request, res: Response) => {
-            const stocks = await this.service.getWatchedStocks();
+        this.router.get('/stocks', this.getWatchedStocks);
 
-            res.json(stocks);
-        });
+        this.router.get('/stocks/:id',  this.getStockById)
 
-        this.router.get('/stocks/:id', async (req: Request, res: Response) => {
-            const stock = await this.service.getStock(req.params.id);
+        this.router.get('/stocks/:id/updates', this.getStockUpdates);
+    }
 
-            res.json(stock);
-        })
+    public getWatchedStocks = async (req: Request, res: Response) => {
+        const stocks = await this.service.getWatchedStocks();
 
-        this.router.get('/stocks/:id/updates', async (req: Request, res: Response, next: NextFunction) => {
-            try {
-                const updateDto = this.updateAssembler.toDto(req.params.id, req.query.limit);
+        res.json(stocks);
+    }
 
-                const updates = await this.service.getStockUpdates(updateDto);
+    public getStockById = async (req: Request, res: Response) => {
+        const stock = await this.service.getStock(req.params.id);
 
-                res.json(updates);
-            }
-            catch (e) {
-                next(e);
-            }
-        })
+        res.json(stock);
+    }
+
+    public getStockUpdates = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const updateDto = this.updateAssembler.toDto(req.params.id, req.query.limit);
+
+            const updates = await this.service.getStockUpdates(updateDto);
+
+            res.json(updates);
+        }
+        catch (e) {
+            next(e);
+        }
     }
 }

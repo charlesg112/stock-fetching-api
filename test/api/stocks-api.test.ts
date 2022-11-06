@@ -2,7 +2,6 @@ import {Stock} from "../../src/stocks/stock";
 import {StockApi} from "../../src/api/stocks-api";
 import {StockBuilder} from "../helpers/stock-builder";
 import {StockService} from "../../src/service/stock-service";
-import {StockUpdateAssembler} from "../../src/api/stock-update-assembler";
 
 describe("Stock api tests", () => {
 
@@ -17,7 +16,7 @@ describe("Stock api tests", () => {
         getWatchedStocks: getWatchedStocksMock,
         getStockUpdates: getStockClosesMock
     }
- 
+
     const updateAssemblerMock = {
         toDto: jest.fn(),
     }
