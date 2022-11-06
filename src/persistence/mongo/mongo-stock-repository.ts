@@ -44,12 +44,16 @@ export class MongoStockRepository implements StockRepository {
         return models.map(m => this.mongoStockAssembler.assemble(m));
     }
 
-    async getStockUpdatesById(id: string, limit: number): Promise<StockUpdate[]> {
+    async getStockUpdatesById(id: string, limit: number | null): Promise<StockUpdate[]> {
         if (!this.isConnected) {
             await this.connectToMongo();
         }
 
-        return await this.stockUpdateModel.find({id: id}).sort({'updatedOn': -1}).limit(limit) as StockUpdate[];
+        if (limit) {
+            return await this.stockUpdateModel.find({id: id}).sort({'updatedOn': -1}).limit(limit) as StockUpdate[];
+        }
+
+        return await this.stockUpdateModel.find({id: id}).sort({'updatedOn': -1}) as StockUpdate[];
     }
 
     private static getConnectionUrl(connectionUrl: string | undefined, databaseName: string): string {

@@ -1,17 +1,16 @@
-import express, {Request, Response} from "express";
-import {StockServiceImpl} from "../service/stock-service-impl";
+import express, {NextFunction, Request, Response} from "express";
 import {StockService} from "../service/stock-service";
-import {isNumberObject} from "util/types";
 import {StockUpdateAssembler} from "./stock-update-assembler";
+import {valueIsNotANumberMapper} from "./exceptions/value-is-not-a-number-mapper";
 
 export class StockApi {
     private service: StockService;
     private updateAssembler: StockUpdateAssembler;
     private readonly router: express.Router;
 
-    constructor(service: StockService, updateAssembler: StockUpdateAssembler) {
+    constructor(service: StockService, stockUpdateAssembler: StockUpdateAssembler) {
         this.service = service;
-        this.updateAssembler = updateAssembler;
+        this.updateAssembler = stockUpdateAssembler;
         this.router = express.Router();
         this.setRoutes();
     }
@@ -33,15 +32,16 @@ export class StockApi {
             res.json(stock);
         })
 
-        this.router.get('/stocks/:id/updates', async (req: Request, res: Response) => {
+        this.router.get('/stocks/:id/updates', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const updateDto = this.updateAssembler.toDto(req.params.id, req.query.limit);
 
                 const updates = await this.service.getStockUpdates(updateDto);
 
                 res.json(updates);
-            } catch (e) {
-                res.status(400).json({"error": "Limit parameter has invalid value"});
+            }
+            catch (e) {
+                next(e);
             }
         })
     }
