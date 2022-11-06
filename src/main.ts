@@ -7,7 +7,11 @@ import { StockUpdateAssemblerImpl } from './api/stock-update-assembler-impl';
 import { valueIsNotANumberMapper } from './api/exceptions/value-is-not-a-number-mapper';
 import { catchallExceptionMapper } from './api/exceptions/catchall-exception-mapper';
 import { stockNotFoundMapper } from './api/exceptions/stock-not-found-mapper';
+import { StockUpdateWebsocket } from './api/websockets/stock-update-websocket';
+import * as http from 'http';
+
 const app = express();
+const server = http.createServer(app);
 const port = 3000;
 
 const stockApi = createStockApi();
@@ -30,3 +34,9 @@ function createStockApi(): StockApi {
 
     return new StockApi(stockService, stockUpdateAssembler);
 }
+
+const stockUpdateWebsocket = new StockUpdateWebsocket(server);
+
+server.listen(process.env.PORT || 3001, () => {
+    console.log(`Server started on port ${3001} :)`);
+});
