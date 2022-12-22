@@ -13,7 +13,11 @@ export class WebsocketDirectory {
         if (!connectedSockets) {
             connectedSockets = [];
         }
-        connectedSockets.push(webSocket);
+
+        if (connectedSockets.find(ws => ws === webSocket) == undefined) {
+            connectedSockets.push(webSocket);
+        }
+
         this.socketsMap.set(stockId, connectedSockets)
     }
 
