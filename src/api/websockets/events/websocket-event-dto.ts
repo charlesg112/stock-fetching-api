@@ -1,4 +1,4 @@
 export interface WebsocketEventDto {
-    event: string,
-    payload: object
+    event: string;
+    payload: object;
 }

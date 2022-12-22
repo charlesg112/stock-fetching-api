@@ -1,7 +1,6 @@
 import WebSocket from 'ws';
 
 export class WebsocketBuilder {
-
     private send: any;
 
     constructor() {
@@ -16,6 +15,6 @@ export class WebsocketBuilder {
     public build() {
         return {
             send: this.send
-        } as unknown as WebSocket
+        } as unknown as WebSocket;
     }
 }

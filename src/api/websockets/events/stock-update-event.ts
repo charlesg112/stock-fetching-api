@@ -2,11 +2,7 @@ import { WebsocketEvent } from './websocket-event';
 import WebSocket from 'ws';
 
 export class StockUpdateEvent implements WebsocketEvent {
+    constructor() {}
 
-    constructor() {
-    }
-
-    handle(source: WebSocket): void {
-    }
-
+    handle(source: WebSocket): void {}
 }

@@ -59,7 +59,16 @@ describe('Memory Stock Repository', () => {
     });
 
     function createStock(): Stock {
-        return new Stock(getRandomString(), getRandomString(), getRandomString(), getRandomString(), null, null, null, null);
+        return new Stock(
+            getRandomString(),
+            getRandomString(),
+            getRandomString(),
+            getRandomString(),
+            null,
+            null,
+            null,
+            null
+        );
     }
 
     function getRandomString(): string {

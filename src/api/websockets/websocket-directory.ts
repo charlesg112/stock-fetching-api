@@ -14,18 +14,18 @@ export class WebsocketDirectory {
             connectedSockets = [];
         }
 
-        if (connectedSockets.find(ws => ws === webSocket) == undefined) {
+        if (connectedSockets.find((ws) => ws === webSocket) == undefined) {
             connectedSockets.push(webSocket);
         }
 
-        this.socketsMap.set(stockId, connectedSockets)
+        this.socketsMap.set(stockId, connectedSockets);
     }
 
     public notifyStockUpdate(stock: Stock) {
         const stockId = stock.id;
         const connectedSockets = this.socketsMap.get(stockId);
         if (connectedSockets) {
-            connectedSockets.forEach(s => s.send(JSON.stringify(stock)));
+            connectedSockets.forEach((s) => s.send(JSON.stringify(stock)));
         }
     }
 }

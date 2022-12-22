@@ -39,11 +39,10 @@ export class WebsocketEventAssembler {
     }
 
     private static getProperty(object: any, fieldName: string): any {
-        const field = object[fieldName]
+        const field = object[fieldName];
         if (field == undefined) {
             throw new EventMissingPropertyError(fieldName);
         }
         return field;
     }
-
 }

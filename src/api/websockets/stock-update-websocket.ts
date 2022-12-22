@@ -3,16 +3,14 @@ import { Server } from 'http';
 import { WebsocketDirectory } from './websocket-directory';
 import { WebsocketEventAssembler } from './events/websocket-event-assembler';
 
-
 export class StockUpdateWebsocket {
-
     private webSocket: WebSocket;
     private websocketDirectory: WebsocketDirectory;
     private server: WebSocketServer;
     private assembler: WebsocketEventAssembler;
 
     constructor(server: Server, websocketDirectory: WebsocketDirectory, assembler: WebsocketEventAssembler) {
-        this.webSocket = new WebSocket.WebSocket("ws:localhost:54321");
+        this.webSocket = new WebSocket.WebSocket('ws:localhost:54321');
         this.server = new WebSocket.Server({ server });
         this.websocketDirectory = websocketDirectory;
         this.assembler = assembler;
@@ -21,18 +19,16 @@ export class StockUpdateWebsocket {
     }
 
     private setUpWebSocket() {
-        this.webSocket.on("message", (m) => {
-            const dataString = m.toString()
+        this.webSocket.on('message', (m) => {
+            const dataString = m.toString();
             console.log(dataString);
-        })
+        });
     }
 
     private setUpServer() {
         const stockUpdates = this;
 
         this.server.on('connection', (ws) => {
-
-
             ws.on('message', (m) => {
                 try {
                     const event = stockUpdates.assembler.parseEvent(m.toString());
@@ -40,8 +36,7 @@ export class StockUpdateWebsocket {
                 } catch (e: any) {
                     ws.send(e.toString());
                 }
-            })
-
+            });
         });
     }
 }

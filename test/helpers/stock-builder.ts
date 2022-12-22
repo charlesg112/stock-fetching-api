@@ -18,7 +18,7 @@ export class StockBuilder {
         this.lastUpdate = new Date();
         this.nextUpdate = new Date();
         this.lastValue = 10.0;
-        this.state = "open";
+        this.state = 'open';
     }
 
     public withId(id: string): StockBuilder {
