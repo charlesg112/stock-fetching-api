@@ -5,11 +5,12 @@ export class WebsocketBuilder {
     private send: any;
 
     constructor() {
-
+        this.send = () => {};
     }
 
-    public withSend() {
-
+    public withSend(sendFunction: () => void): WebsocketBuilder {
+        this.send = sendFunction;
+        return this;
     }
 
     public build() {

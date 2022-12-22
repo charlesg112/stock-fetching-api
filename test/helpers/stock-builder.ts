@@ -8,6 +8,7 @@ export class StockBuilder {
     private lastUpdate: Date | null;
     private nextUpdate: Date | null;
     private lastValue: number | null;
+    private state: string | null;
 
     constructor() {
         this.id = '123';
@@ -17,6 +18,7 @@ export class StockBuilder {
         this.lastUpdate = new Date();
         this.nextUpdate = new Date();
         this.lastValue = 10.0;
+        this.state = "open";
     }
 
     public withId(id: string): StockBuilder {
@@ -32,7 +34,8 @@ export class StockBuilder {
             this.currency,
             this.lastUpdate,
             this.nextUpdate,
-            this.lastValue
+            this.lastValue,
+            this.state
         );
     }
 }
