@@ -12,6 +12,7 @@ export class Stock {
     lastUpdate: Date | null;
     nextUpdate: Date | null;
     lastValue: number | null;
+    state: string | null;
 
     constructor(
         id: string,
@@ -20,7 +21,8 @@ export class Stock {
         currency: string,
         lastUpdate: Date | null,
         nextUpdate: Date | null,
-        lastValue: number | null
+        lastValue: number | null,
+        state: string | null
     ) {
         this.id = id;
         this.symbol = symbol;
@@ -29,5 +31,6 @@ export class Stock {
         this.lastUpdate = lastUpdate;
         this.nextUpdate = nextUpdate;
         this.lastValue = lastValue;
+        this.state = state;
     }
 }

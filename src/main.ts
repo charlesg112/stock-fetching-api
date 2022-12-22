@@ -9,6 +9,9 @@ import { catchallExceptionMapper } from './api/exceptions/catchall-exception-map
 import { stockNotFoundMapper } from './api/exceptions/stock-not-found-mapper';
 import { StockUpdateWebsocket } from './api/websockets/stock-update-websocket';
 import * as http from 'http';
+import { Server } from 'http';
+import { WebsocketDirectory } from './api/websockets/websocket-directory';
+import { WebsocketEventAssembler } from './api/websockets/events/websocket-event-assembler';
 
 const app = express();
 const server = http.createServer(app);
@@ -26,6 +29,12 @@ app.listen(port, () => {
     console.log(`STOCK-FETCHING-API running on ${port}`);
 });
 
+server.listen(process.env.PORT || 3001, () => {
+    console.log(`Server started on port ${3001} :)`);
+});
+
+const stockUpdateWebsocket = createStockUpdateWebsocket(server);
+
 function createStockApi(): StockApi {
     const persistence: StockRepository = new MongoStockRepository('stocks', process.env.DATABASEURL);
 
@@ -35,8 +44,8 @@ function createStockApi(): StockApi {
     return new StockApi(stockService, stockUpdateAssembler);
 }
 
-const stockUpdateWebsocket = new StockUpdateWebsocket(server);
-
-server.listen(process.env.PORT || 3001, () => {
-    console.log(`Server started on port ${3001} :)`);
-});
+function createStockUpdateWebsocket(server: Server): StockUpdateWebsocket {
+    const websocketDirectory = new WebsocketDirectory();
+    const websocketEventAssembler = new WebsocketEventAssembler(websocketDirectory);
+    return new StockUpdateWebsocket(server, websocketDirectory, websocketEventAssembler);
+}
