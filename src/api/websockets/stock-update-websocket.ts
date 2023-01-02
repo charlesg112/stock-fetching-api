@@ -28,9 +28,15 @@ export class StockUpdateWebsocket {
     }
 
     private setUpWebSocket() {
+        const stockUpdates = this;
+
         this.webSocket.on('message', (m) => {
-            const dataString = m.toString();
-            console.log(dataString);
+            try {
+                const event = stockUpdates.workerEventAssembler.parseEvent(m.toString());
+                event.handle(stockUpdates.webSocket);
+            } catch (e: any) {
+                stockUpdates.webSocket.send(e.toString());
+            }
         });
     }
 

@@ -21,7 +21,7 @@ export class WebsocketWorkerEventAssembler {
 
         switch (eventType) {
             case WebsocketEvents.STOCKS_UPDATE:
-                return new StockUpdateEvent();
+                return new StockUpdateEvent(this.eventParser.getProperty(payload, 'stock'), this.websocketDirectory);
             default:
                 throw new EventTypeDoesNotExistError();
         }

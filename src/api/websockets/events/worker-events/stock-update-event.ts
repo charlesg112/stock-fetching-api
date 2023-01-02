@@ -1,8 +1,18 @@
 import { WebsocketEvent } from '../websocket-event';
 import WebSocket from 'ws';
+import { Stock } from '../../../../stocks/stock';
+import { WebsocketDirectory } from '../../websocket-directory';
 
 export class StockUpdateEvent implements WebsocketEvent {
-    constructor() {}
+    private readonly stock: Stock;
+    private readonly websocketDirectory: WebsocketDirectory;
 
-    handle(source: WebSocket): void {}
+    constructor(stock: Stock, websocketDirectory: WebsocketDirectory) {
+        this.stock = stock;
+        this.websocketDirectory = websocketDirectory;
+    }
+
+    handle(source: WebSocket): void {
+        this.websocketDirectory.notifyStockUpdate(this.stock);
+    }
 }
