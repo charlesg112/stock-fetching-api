@@ -11,12 +11,12 @@ export class EventParser {
         }
     }
 
-    public getProperty(object: any, fieldName: string): any {
-        const field = object[fieldName];
-        if (field == undefined) {
-            throw new EventMissingPropertyError(fieldName);
+    public getProperty(object: any, propertyName: string): any {
+        const property = object[propertyName];
+        if (property == undefined) {
+            throw new EventMissingPropertyError(propertyName);
         }
-        return field;
+        return property;
     }
 
 }
