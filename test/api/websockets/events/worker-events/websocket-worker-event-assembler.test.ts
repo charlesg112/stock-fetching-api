@@ -8,14 +8,16 @@ describe('WebsocketWorkerEventAssembler tests', () => {
     const updateMessageData = {
         event: WebsocketEvents.STOCKS_UPDATE,
         payload: {
-            id: '123',
-            symbol: 'AC.TO',
-            exchange: 'TSX',
-            currency: 'CAD',
-            lastUpdate: new Date(),
-            nextUpdate: new Date(),
-            lastValue: 10.0,
-            state: 'open'
+            stock: {
+                id: '123',
+                symbol: 'AC.TO',
+                exchange: 'TSX',
+                currency: 'CAD',
+                lastUpdate: new Date(),
+                nextUpdate: new Date(),
+                lastValue: 10.0,
+                state: 'open'
+            }
         }
     };
 
