@@ -52,5 +52,11 @@ function createStockUpdateWebsocket(server: Server): StockUpdateWebsocket {
     const websocketClientEventAssembler = new WebsocketClientEventAssembler(websocketDirectory, eventParser);
     const websocketWorkerEventAssembler = new WebsocketWorkerEventAssembler(websocketDirectory, eventParser);
     const stockFetchingWorkerAddress = process.env.ADDRESS || 'ws:localhost:54321';
-    return new StockUpdateWebsocket(server, websocketDirectory, websocketClientEventAssembler, websocketWorkerEventAssembler, stockFetchingWorkerAddress);
+    return new StockUpdateWebsocket(
+        server,
+        websocketDirectory,
+        websocketClientEventAssembler,
+        websocketWorkerEventAssembler,
+        stockFetchingWorkerAddress
+    );
 }

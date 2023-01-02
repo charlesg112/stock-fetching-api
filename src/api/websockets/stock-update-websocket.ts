@@ -11,7 +11,13 @@ export class StockUpdateWebsocket {
     private readonly clientEventAssembler: WebsocketClientEventAssembler;
     private readonly workerEventAssembler: WebsocketWorkerEventAssembler;
 
-    constructor(server: Server, websocketDirectory: WebsocketDirectory, clientEventAssembler: WebsocketClientEventAssembler, workerEventAssembler: WebsocketWorkerEventAssembler, address: string) {
+    constructor(
+        server: Server,
+        websocketDirectory: WebsocketDirectory,
+        clientEventAssembler: WebsocketClientEventAssembler,
+        workerEventAssembler: WebsocketWorkerEventAssembler,
+        address: string
+    ) {
         this.webSocket = new WebSocket.WebSocket(address);
         this.server = new WebSocket.Server({ server });
         this.websocketDirectory = websocketDirectory;

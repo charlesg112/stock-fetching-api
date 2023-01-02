@@ -2,7 +2,6 @@ import { EventCannotBeParsedError } from '../exceptions/event-cannot-be-parsed-e
 import { EventMissingPropertyError } from '../exceptions/event-missing-property-error';
 
 export class EventParser {
-
     public parseEventJSON(event: string): any {
         try {
             return JSON.parse(event);
@@ -18,5 +17,4 @@ export class EventParser {
         }
         return property;
     }
-
 }
