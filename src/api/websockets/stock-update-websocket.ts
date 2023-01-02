@@ -1,20 +1,23 @@
 import WebSocket, { WebSocketServer } from 'ws';
 import { Server } from 'http';
 import { WebsocketDirectory } from './websocket-directory';
-import { WebsocketEventAssembler } from './events/websocket-event-assembler';
+import { WebsocketClientEventAssembler } from './events/client-events/websocket-client-event-assembler';
+import { WebsocketWorkerEventAssembler } from './events/worker-events/websocket-worker-event-assembler';
 
 export class StockUpdateWebsocket {
     private webSocket: WebSocket;
-    private websocketDirectory: WebsocketDirectory;
     private server: WebSocketServer;
-    private assembler: WebsocketEventAssembler;
+    private readonly websocketDirectory: WebsocketDirectory;
+    private readonly clientEventAssembler: WebsocketClientEventAssembler;
+    private readonly workerEventAssembler: WebsocketWorkerEventAssembler;
 
-    constructor(server: Server, websocketDirectory: WebsocketDirectory, assembler: WebsocketEventAssembler) {
-        this.webSocket = new WebSocket.WebSocket('ws:localhost:54321');
+    constructor(server: Server, websocketDirectory: WebsocketDirectory, clientEventAssembler: WebsocketClientEventAssembler, workerEventAssembler: WebsocketWorkerEventAssembler, address: string) {
+        this.webSocket = new WebSocket.WebSocket(address);
         this.server = new WebSocket.Server({ server });
         this.websocketDirectory = websocketDirectory;
-        this.assembler = assembler;
-        // this.setUpWebSocket();
+        this.clientEventAssembler = clientEventAssembler;
+        this.workerEventAssembler = workerEventAssembler;
+        this.setUpWebSocket();
         this.setUpServer();
     }
 
@@ -31,7 +34,7 @@ export class StockUpdateWebsocket {
         this.server.on('connection', (ws) => {
             ws.on('message', (m) => {
                 try {
-                    const event = stockUpdates.assembler.parseEvent(m.toString());
+                    const event = stockUpdates.clientEventAssembler.parseEvent(m.toString());
                     event.handle(ws);
                 } catch (e: any) {
                     ws.send(e.toString());

@@ -1,6 +1,6 @@
-import { WebsocketEvent } from './websocket-event';
+import { WebsocketEvent } from '../websocket-event';
 import WebSocket from 'ws';
-import { WebsocketDirectory } from '../websocket-directory';
+import { WebsocketDirectory } from '../../websocket-directory';
 
 export class StockSubscribeEvent implements WebsocketEvent {
     private readonly stockIds: string[];

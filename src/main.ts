@@ -11,7 +11,9 @@ import { StockUpdateWebsocket } from './api/websockets/stock-update-websocket';
 import * as http from 'http';
 import { Server } from 'http';
 import { WebsocketDirectory } from './api/websockets/websocket-directory';
-import { WebsocketEventAssembler } from './api/websockets/events/websocket-event-assembler';
+import { EventParser } from './api/websockets/events/event-parser';
+import { WebsocketClientEventAssembler } from './api/websockets/events/client-events/websocket-client-event-assembler';
+import { WebsocketWorkerEventAssembler } from './api/websockets/events/worker-events/websocket-worker-event-assembler';
 
 const app = express();
 const server = http.createServer(app);
@@ -46,6 +48,9 @@ function createStockApi(): StockApi {
 
 function createStockUpdateWebsocket(server: Server): StockUpdateWebsocket {
     const websocketDirectory = new WebsocketDirectory();
-    const websocketEventAssembler = new WebsocketEventAssembler(websocketDirectory);
-    return new StockUpdateWebsocket(server, websocketDirectory, websocketEventAssembler);
+    const eventParser = new EventParser();
+    const websocketClientEventAssembler = new WebsocketClientEventAssembler(websocketDirectory, eventParser);
+    const websocketWorkerEventAssembler = new WebsocketWorkerEventAssembler(websocketDirectory, eventParser);
+    const stockFetchingWorkerAddress = process.env.ADDRESS || 'ws:localhost:54321';
+    return new StockUpdateWebsocket(server, websocketDirectory, websocketClientEventAssembler, websocketWorkerEventAssembler, stockFetchingWorkerAddress);
 }
