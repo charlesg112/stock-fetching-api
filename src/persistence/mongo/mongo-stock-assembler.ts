@@ -11,7 +11,8 @@ export class MongoStockAssembler {
             model.currency,
             model.lastUpdate,
             model.nextUpdate,
-            model.lastValue
+            model.lastValue,
+            model.state
         );
     }
 }

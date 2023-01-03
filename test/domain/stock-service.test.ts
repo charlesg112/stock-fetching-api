@@ -2,12 +2,11 @@ import { StockServiceImpl } from '../../src/service/stock-service-impl';
 import { Stock } from '../../src/stocks/stock';
 import { InMemoryStockRepository } from '../../src/persistence/memory/in-memory-stock-repository';
 import { StockUpdateBuilder } from '../helpers/stock-update-builder';
-import { StockUpdateDto } from '../../src/service/stock-update-dto';
 import { StockUpdateDtoBuilder } from '../helpers/stock-update-dto-builder';
 
 describe('Stock service tests', () => {
     const stockId = '1';
-    const stock = new Stock(stockId, 'AC.TO', 'TSX', 'CAD', null, null, null);
+    const stock = new Stock(stockId, 'AC.TO', 'TSX', 'CAD', null, null, null, null);
 
     const inMemoryRepository = new InMemoryStockRepository();
 
