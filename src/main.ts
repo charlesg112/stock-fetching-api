@@ -38,7 +38,7 @@ server.listen(process.env.PORT || 3001, () => {
 const stockUpdateWebsocket = createStockUpdateWebsocket(server);
 
 function createStockApi(): StockApi {
-    const persistence: StockRepository = new MongoStockRepository('stocks', process.env.DATABASEURL);
+    const persistence: StockRepository = new MongoStockRepository('stocks', process.env.DATABASE_URL);
 
     const stockUpdateAssembler = new StockUpdateAssemblerImpl();
     const stockService = new StockServiceImpl(persistence);
@@ -51,7 +51,7 @@ function createStockUpdateWebsocket(server: Server): StockUpdateWebsocket {
     const eventParser = new EventParser();
     const websocketClientEventAssembler = new WebsocketClientEventAssembler(websocketDirectory, eventParser);
     const websocketWorkerEventAssembler = new WebsocketWorkerEventAssembler(websocketDirectory, eventParser);
-    const stockFetchingWorkerAddress = process.env.ADDRESS || 'ws:localhost:54321';
+    const stockFetchingWorkerAddress = process.env.WORKER_WEBSOCKET_ADDRESS || 'ws:localhost:54321';
     return new StockUpdateWebsocket(
         server,
         websocketDirectory,
