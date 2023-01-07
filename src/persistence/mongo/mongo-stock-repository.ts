@@ -62,7 +62,7 @@ export class MongoStockRepository implements StockRepository {
     }
 
     private static getConnectionUrl(connectionUrl: string | undefined, databaseName: string): string {
-        return connectionUrl ? connectionUrl : `mongodb://localhost/${databaseName}`;
+        return connectionUrl ? connectionUrl : `mongodb://127.0.0.1/${databaseName}`;
     }
 
     private async connectToMongo() {

@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { MongoStockRepository } from './persistence/mongo/mongo-stock-repository';
 import { StockRepository } from './domain/stock-repository';
 import { StockServiceImpl } from './service/stock-service-impl';
@@ -20,6 +21,8 @@ const server = http.createServer(app);
 const port = 3000;
 
 const stockApi = createStockApi();
+
+app.use(cors({credentials: true, origin: true}))
 
 app.use(stockApi.getRouter());
 
